@@ -1,0 +1,7 @@
+# Global gitignore (core.excludesFile) — junk that never belongs in any repo
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+*.swp
+.vscode/*.log

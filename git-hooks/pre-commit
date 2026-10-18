@@ -1,0 +1,11 @@
+#!/bin/sh
+# Global pre-commit (core.hooksPath = ~/dev/dotfiles/git-hooks).
+# Blocks commits whose staged changes contain secrets, then runs the repo's own pre-commit hook.
+# Bypass once with: git commit --no-verify
+if command -v gitleaks >/dev/null 2>&1; then
+  if ! gitleaks git --pre-commit --staged --redact --no-banner --log-level warn; then
+    echo "gitleaks: possible secret in staged changes. Remove it, or bypass with: git commit --no-verify" >&2
+    exit 1
+  fi
+fi
+exec "$(dirname "$0")/_run-repo-hook" pre-commit "$@"

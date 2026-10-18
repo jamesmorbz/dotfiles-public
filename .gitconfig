@@ -1,0 +1,10 @@
+# ~/.gitconfig — lives in ~/dev/dotfiles, symlinked by setup.sh / setup-linux.sh (works on macOS and Linux)
+[core]
+	hooksPath = ~/dev/dotfiles/git-hooks
+	excludesFile = ~/dev/dotfiles/.gitignore_global
+# Per-OS settings: ~/.gitconfig.os links to git/macos.gitconfig or git/linux.gitconfig
+[include]
+	path = ~/.gitconfig.os
+# Name/email and machine-only overrides live here (not in the shared file); missing files are ignored
+[include]
+	path = ~/.gitconfig.local

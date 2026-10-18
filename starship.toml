@@ -1,0 +1,35 @@
+# Starship prompt — lives in ~/dev/dotfiles, symlinked to ~/.config/starship.toml
+# Shows: directory, git branch/status, language versions for the project, venv, slow commands.
+# [time] first, then everything else. .zshrc redraws it on Enter, so it's when the command ran.
+format = "$time$all"
+add_newline = false
+
+# One line: folder, git, versions, then ❯ on the same line
+[line_break]
+disabled = true
+command_timeout = 1000
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+
+[git_status]
+disabled = false
+
+[cmd_duration]
+min_time = 2_000
+
+[package]
+disabled = true
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[time]
+disabled = false
+time_format = "%H:%M:%S"
+format = '[\[$time\]]($style) '
+style = "bright-black"

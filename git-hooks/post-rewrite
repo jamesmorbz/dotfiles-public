@@ -1,0 +1,3 @@
+#!/bin/sh
+# Passes through to the repo's own hook (see _run-repo-hook).
+exec "$(dirname "$0")/_run-repo-hook" post-rewrite "$@"

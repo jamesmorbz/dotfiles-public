@@ -1,0 +1,19 @@
+# macOS git settings, included from ~/.gitconfig via ~/.gitconfig.os (setup.sh links it)
+# GitHub logins through gh (no Keychain prompts); other hosts use the macOS Keychain
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential]
+	helper = osxkeychain
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+[merge]
+	conflictStyle = zdiff3

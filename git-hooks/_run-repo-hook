@@ -1,0 +1,8 @@
+#!/bin/sh
+# A global core.hooksPath makes git skip each repo's .git/hooks. This runs the repo's own
+# hook of the given name, if it has one, so per-repo hooks keep working.
+# Usage: _run-repo-hook <hook-name> [args...]
+name="$1"; shift
+hook="$(git rev-parse --git-common-dir)/hooks/$name"
+[ -x "$hook" ] && exec "$hook" "$@"
+exit 0

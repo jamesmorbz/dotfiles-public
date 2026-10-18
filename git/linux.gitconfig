@@ -1,0 +1,5 @@
+# Linux git settings, included from ~/.gitconfig via ~/.gitconfig.os (setup-linux.sh links it)
+# Kept minimal so it works with older git and without extra tools. Credentials: whatever the
+# machine already uses (add a helper in ~/.gitconfig.local if needed).
+[merge]
+	conflictStyle = diff3
