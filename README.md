@@ -11,7 +11,7 @@ The configs expect the repo at `~/dev/dotfiles`. `install.sh` symlinks the files
 
 | File | Linked to | What it does |
 |---|---|---|
-| `.zshrc`, `.zprofile` | `~/.zshrc`, `~/.zprofile` | history, completion, starship, fzf, zoxide, aliases (`ll`/`tree` via eza, `cat` via bat, `lg` lazygit, `t` tmux), `mkvenv`; Ghostty windows auto-attach tmux |
+| `.zshrc`, `.zprofile` | `~/.zshrc`, `~/.zprofile` | history, completion, starship, fzf, zoxide, aliases (`ll`/`tree` via eza, `cat` via bat, `lg` lazygit, `t` tmux), `mkvenv`, `scratch` (fresh /tmp folder), `cr` (resume a Claude session); Ghostty windows auto-attach tmux |
 | `starship.toml` | `~/.config/starship.toml` | one-line prompt: `[time the command ran]` folder, git, language versions, slow commands |
 | `.tmux.conf`, `tmux/` | `~/.tmux.conf` | Catppuccin Mocha pills, prefix hint strip, popups, vi copy to clipboard (OSC 52 over SSH), session save/restore |
 | `ghostty/config` | `~/.config/ghostty/config` (macOS, link by hand) | Catppuccin Mocha, ⌘B as the tmux prefix, ⌘⌥ arrows move panes |

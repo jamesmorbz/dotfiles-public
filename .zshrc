@@ -38,6 +38,8 @@ command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 # Aliases
 alias t='tmux new-session -A -s main -c ~/dev'
 alias dev='cd ~/dev'
+# Throwaway experiments: a fresh folder in /tmp (cleared on restart), e.g. `scratch` or `scratch json-test`
+scratch() { cd "$(mktemp -d "/tmp/scratch-${1:-$(date +%m%d)}.XXXX")" && pwd; }
 alias lg='lazygit'
 # plain `ls` stays the system ls (so -lrt etc. work), in colour
 unalias ls 2>/dev/null   # clears the old eza alias when re-sourcing in an existing shell

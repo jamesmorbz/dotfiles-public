@@ -23,7 +23,7 @@ link .gitconfig          "$HOME/.gitconfig"
 if [ "$(uname)" = Darwin ]; then link git/macos.gitconfig "$HOME/.gitconfig.os"; else link git/linux.gitconfig "$HOME/.gitconfig.os"; fi
 link starship.toml       "$HOME/.config/starship.toml"
 command -v mise >/dev/null && link mise/config.toml "$HOME/.config/mise/config.toml"
-mkdir -p "$HOME/dev/scratch"
+mkdir -p "$HOME/dev"
 echo "linked: .zshrc .zprofile .tmux.conf .gitconfig starship.toml"
 
 # tmux plugins, pinned versions
