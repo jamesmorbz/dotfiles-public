@@ -29,6 +29,8 @@ if [[ -n $task ]]; then
   (( ${#task} > 40 )) && task="${task[1,39]}…"
   opt @claude_task "$task"
 fi
+[[ $(tmux show -w -t "$TMUX_PANE" -v @claude_state 2>/dev/null) != $state ]] && changed=1
 opt @claude_state $state
+[[ -n $changed && $OSTYPE == darwin* ]] && open -g "swiftbar://refreshplugin?name=macctl" 2>/dev/null   # SwiftBar menu: Claude lights
 [[ $state == waiting || $event == Stop ]] && bell
 exit 0
