@@ -6,8 +6,8 @@ keys while tmux is waiting.
 
 ## Windows (the pills along the bottom)
   Pills are named after the folder. With Claude running they show
-  "folder: task" and a light: red busy, yellow waiting for you,
-  green free. A bell icon means that window wants you.
+  "folder: session title" and a light: red busy, yellow waiting for you,
+  green free. The bell rings when that window wants you.
   Right side: that window's Claude model, context %, cost, folder.
   c          new window (same folder)
   1-9        go to window 1-9

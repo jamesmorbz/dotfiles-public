@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Claude Code → its tmux window pill: traffic light + "folder: task" (see .tmux.conf @claude_*).
+# Claude Code → its tmux window pill: traffic light + "folder: session title" (see .tmux.conf @claude_*).
 # Called by hooks in claude/settings.json with $1 = busy | waiting | free | notify | end; hook JSON on stdin.
 #   red = busy, yellow = waiting for you, green = free. Rings the bell when it needs you or finishes.
 [[ -n $TMUX_PANE ]] || exit 0
@@ -15,13 +15,19 @@ case $state in
 esac
 
 dir=$(j .cwd); [[ -n $dir ]] && opt @claude_dir "${${dir:t}//\#/}"
-if [[ $event == UserPromptSubmit ]]; then
+# Task = the session title Claude Code generates (as in /resume); until it exists, the first words of the prompt
+tp=$(j .transcript_path)
+title=$([[ -f $tp ]] && grep -F '"type":"ai-title"' "$tp" | tail -1 | jq -r '.aiTitle // empty' 2>/dev/null)
+if [[ -n $title ]]; then
+  task=$title
+elif [[ $event == UserPromptSubmit ]]; then
   p=$(j .prompt | tr '\n\t' '  ')
-  if [[ -n $p && $p != /* ]]; then                       # slash commands keep the previous task
-    words=(${=p}); task="${${(j: :)words[1,3]}//\#/}"    # first 3 words, no # (tmux format char)
-    (( ${#task} > 20 )) && task="${task[1,19]}…"
-    opt @claude_task "$task"
-  fi
+  [[ -n $p && $p != /* ]] && { words=(${=p}); task="${(j: :)words[1,6]}"; }   # slash commands keep the previous task
+fi
+if [[ -n $task ]]; then
+  task=${task//\#/}                                     # no # (tmux format char)
+  (( ${#task} > 40 )) && task="${task[1,39]}…"
+  opt @claude_task "$task"
 fi
 opt @claude_state $state
 [[ $state == waiting || $event == Stop ]] && bell

@@ -39,7 +39,7 @@ echo "tmux plugins ready"
 
 echo
 missing=""
-for t in zsh tmux starship fzf zoxide eza bat lazygit gitleaks; do
+for t in zsh tmux starship fzf zoxide eza bat lazygit gitleaks jq; do
   command -v "$t" >/dev/null || { [ "$t" = bat ] && command -v batcat >/dev/null; } || missing="$missing $t"
 done
 [ -n "$missing" ] && echo "Not installed (configs skip what's missing):$missing"

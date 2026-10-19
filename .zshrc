@@ -59,6 +59,17 @@ alias activate='source .venv/bin/activate'
 [[ -f ~/dev/dotfiles/claude/dotsync.sh ]] && dotsync() { zsh ~/dev/dotfiles/claude/dotsync.sh "$@"; }
 [[ -f ~/dev/dotfiles/public/export.sh ]] && dotsync-public() { zsh ~/dev/dotfiles/public/export.sh "$@"; }
 
+# Resume a Claude Code session by ID (or the start of one) from anywhere: cd to the folder it was
+# started in first, since `claude --resume <id>` only finds that folder's sessions. No ID: the picker.
+cr() {
+  [[ -z $1 ]] && { claude --resume; return; }
+  local f=(~/.claude/projects/*/$1*.jsonl(N))
+  (( $#f == 1 )) || { echo "cr: $#f sessions match '$1'"; return 1; }
+  local dir=$(jq -r 'select(.cwd) | .cwd' "$f[1]" 2>/dev/null | head -1)
+  [[ -d $dir ]] && cd "$dir"
+  claude --resume "${f[1]:t:r}"
+}
+
 # Quick system check (macOS)
 if [[ $OSTYPE == darwin* ]]; then
   machealth() {

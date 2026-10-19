@@ -54,4 +54,6 @@ To get the pills, add this to `~/.claude/settings.json`:
 }
 ```
 
-Needs `jq`. Red = busy, yellow = waiting for you, green = free.
+Needs `jq`. Red = busy, yellow = waiting for you, green = free; the pill reads "folder: session title" (the title Claude Code gives the session).
+
+`.zshrc` also adds `cr <session-id>`: resumes a Claude Code session from any folder (it `cd`s to where the session started first).
