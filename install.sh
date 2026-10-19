@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Links the shell, tmux, starship and git configs (Linux or macOS). No sudo, installs nothing system-wide,
-# safe to re-run. Configs expect the repo at ~/dev/dotfiles.
+# Links the zsh, tmux, Starship and git configs on Linux (also the public repo's install.sh). No sudo,
+# installs nothing system-wide, safe to re-run. Configs expect the repo at ~/dev/dotfiles.
 set -e
 DIR="$(cd "$(dirname "$0")" && pwd)"
 [ "$DIR" = "$HOME/dev/dotfiles" ] || echo "warning: configs expect ~/dev/dotfiles (this copy is in $DIR)"
@@ -8,6 +8,7 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 # Symlink $DIR/<src> to <dest>, backing up a real file that is in the way
 link() {
   local src="$DIR/$1" dest="$2"
+  [ -e "$src" ] || return 0   # not in this copy of the repo
   mkdir -p "$(dirname "$dest")"
   if [ -e "$dest" ] && [ ! -L "$dest" ]; then
     mv "$dest" "$dest.backup.$(date +%Y%m%d-%H%M%S)"
@@ -17,14 +18,11 @@ link() {
 }
 
 link .zshrc              "$HOME/.zshrc"
-link .zprofile           "$HOME/.zprofile"
 link .tmux.conf          "$HOME/.tmux.conf"
 link .gitconfig          "$HOME/.gitconfig"
-if [ "$(uname)" = Darwin ]; then link git/macos.gitconfig "$HOME/.gitconfig.os"; else link git/linux.gitconfig "$HOME/.gitconfig.os"; fi
+link git/linux.gitconfig "$HOME/.gitconfig.os"
 link starship.toml       "$HOME/.config/starship.toml"
-command -v mise >/dev/null && link mise/config.toml "$HOME/.config/mise/config.toml"
-mkdir -p "$HOME/dev"
-echo "linked: .zshrc .zprofile .tmux.conf .gitconfig starship.toml"
+echo "linked: .zshrc .tmux.conf .gitconfig starship.toml"
 
 # tmux plugins, pinned versions
 TP="$HOME/.config/tmux/plugins"
